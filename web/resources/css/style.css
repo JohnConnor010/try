@@ -1,0 +1,78 @@
+/* CSS Document */
+*{margin:0px; padding:0px;}
+body{font-size:12px; color:#000; font-family:"微软雅黑"; background-color:#fff; min-height:100%;}
+
+ol,ul,li{list-style:none; padding:0px; margin:0px;}
+div,p,h1,h2,h3,h4,h5,input,img,td,tr{margin:0px; padding:0px;}
+textarea,input,button{outline:none}
+table{border-collapse:0px;}
+a{border:0; color:#fff; text-decoration:none;}
+a:hover{color:#ac193d;}
+.clearfix{overflow:auto;_height:1%}
+.whole{width:1200px; margin:0px auto;}
+
+.margin_left12{margin-left:12px;}
+.margin_left8{margin-left:8px;}
+/* 头部 */
+.head{ width:100%; height:90px; background-color:#fff; box-shadow:1px 1px 10px #000;}
+.head img{float:left; margin-top:10px;}
+.head span{font-size:30px; color:#5a5a5a;float:left;margin-top:13px; margin-left:30px;}
+/* 登录 */
+
+.cueInfo{padding:10px; width:300px; margin:10px auto; color:#d10707; border:1px solid #b80505; background-color:#fdd0ce;}
+.Log_Sign{width:100%; }
+.Log_Sign .Log_B{width:100%; height:602px; background:url(../images/Bg_bdab.png) no-repeat center; overflow:auto}
+.Log_on{width:395px; border-radius:3px; background:url(../images/Log_on.png); float:right; margin-top:20px;}
+.Log_on .Top_log{height:55px; background-color:#231d25; line-height:55px; text-align:center; font-size:20px; color:#fa603d;}
+.Center_log{width:320px; height:400px; margin:10px auto;}
+.Center_log table{border-collapse:collapse; width:100%;}
+.Center_log table td{height:76px;}
+.Center_log table td .uk_cd{border:1px solid #a6a6a7; height:48px; background-color:#fff; border-radius:5px;}
+
+.Center_log table td .uk_cd:hover{border:1px solid #3c5eed; box-shadow:0 0 10px #3c5eed}
+.Center_log table td .uk_cd input{width:258px; height:46px; line-height:46px; float:right; border:none;}
+.Center_log table td .uk_cd img{float:left; margin-top:13px; margin-left:20px;}
+.Center_log table td button{width:154px; height:37px; border:1px solid #fa603d; font-size:16px; border-radius:5px; cursor:pointer;}
+
+.Center_log table td button.denglu{background-color:#fa603d; color:#fff;}
+.Center_log table td button:hover{box-shadow:0 0 20px #b92200;}
+.Center_log table td button.shengqing{background-color:inherit; color:#fa603d;}
+.Center_log li{width:154px; height:154px; float:left; cursor:pointer;   position:relative;}
+.Center_log li .QR_code{display:none; position:absolute; top:0px; left:0px; width:154px; height:154px; background-color:#000;}
+.Center_log li:hover .QR_code{display:block;}
+
+
+.function{overflow:auto;_height:1%; margin:55px 0;}
+.function li{float:left; width:200px; padding:0 20px; text-align:center;}
+.function li p{color:#333;margin-top:33px;}
+
+
+/* 底部 */
+.foot{text-align:center;}
+.foot p{height:52px; line-height:52px; color:#828282; background-color:#ececec;}
+.foot p span{margin:0 20px;}
+.foot div{height:30px; line-height:30px; background-color:#000; color:#fff;}
+
+/* 试用申请页  */
+.Apply_r{background-color:#f4f7f9; margin-top:11px; padding-bottom:30px;}
+.askFor{padding:15px; background-color:#fff;}
+.askFor .Top_ask{color:#263238; font-size:25px; border-bottom:1px solid #dbe5ea; padding:15px;}
+.askFor .Cozy_hint{padding:10px;  margin:30px auto; color:#d10707; border:1px solid #b80505; background-color:#fdd0ce;}
+.No_Bor_Apply{width:832px; margin:0 auto 50px;}
+.No_Bor_Apply table{border-collapse:collapse;}
+.No_Bor_Apply table td{padding:20px 0; color:#263238; font-size:12px;}
+.No_Bor_Apply table td .Input{height:38px; line-height:38px; font-size:12px; padding-left:10px; border:1px solid #b4c1c8; border-radius:3px;}
+.No_Bor_Apply table td .Input:hover{box-shadow:0 0 5px #284ef6; border:1px solid #284ef6;}
+.No_Bor_Apply table td .width350{width:350px;}
+.No_Bor_Apply table td .width196{width:196px;}
+.No_Bor_Apply table td .width133{width:133px;}
+.No_Bor_Apply table td .rest{width:70px;height:22px; line-height:22px; font-size:12px; padding-left:5px; border:1px solid #b4c1c8;}
+.No_Bor_Apply table td .rest:hover{box-shadow:0 0 5px #284ef6; border:1px solid #284ef6;}
+.No_Bor_Apply table td li{float:left; width:100px; height:24px; line-height:24px; margin-left:30px; margin-top:10px;}
+.No_Bor_Apply table td li .radio{margin-right:14px;}
+.No_Bor_Apply table td .textarea{width:672px;height:156px; line-height:38px; padding-left:10px; font-size:12px; border:1px solid #b4c1c8; border-radius:3px;}
+.No_Bor_Apply table td .textarea:hover{box-shadow:0 0 5px #284ef6; border:1px solid #284ef6;}
+.No_Bor_Apply table td span{color:#ab0303; margin-left:20px;}
+.No_Bor_Apply table td button{width:120px;height:40px; border-radius:40px; cursor:pointer; margin-left:30px;}
+.No_Bor_Apply table td .putIn{background-color:#03a9f4; color:#fff; border:1px solid #03a9f4;}
+.No_Bor_Apply table td .empty{background-color:#fff; color:#263238; border:1px solid #b4c1c8;}

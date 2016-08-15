@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_try" default="compile.module.try">
+  <dirname property="module.try.basedir" file="${ant.file.module_try}"/>
+  
+  <property name="module.jdk.home.try" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.try" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.try" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.try" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="try.output.dir" value="${module.try.basedir}/out/production/try"/>
+  <property name="try.testoutput.dir" value="${module.try.basedir}/out/test/try"/>
+  
+  <path id="try.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="try.module.production.classpath">
+    <path refid="${module.jdk.classpath.try}"/>
+    <path refid="library.lib.classpath"/>
+    <path refid="library.tomcat_8.0.36.classpath"/>
+  </path>
+  
+  <path id="try.runtime.production.module.classpath">
+    <path refid="library.lib.classpath"/>
+    <pathelement location="${try.output.dir}"/>
+  </path>
+  
+  <path id="try.module.classpath">
+    <path refid="${module.jdk.classpath.try}"/>
+    <path refid="library.lib.classpath"/>
+    <path refid="library.tomcat_8.0.36.classpath"/>
+    <pathelement location="${try.output.dir}"/>
+  </path>
+  
+  <path id="try.runtime.module.classpath">
+    <path refid="library.lib.classpath"/>
+    <path refid="library.tomcat_8.0.36.classpath"/>
+    <pathelement location="${try.testoutput.dir}"/>
+    <pathelement location="${try.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.try">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.try">
+    <patternset refid="excluded.from.module.try"/>
+  </patternset>
+  
+  <path id="try.module.sourcepath">
+    <dirset dir="${module.try.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.try" depends="compile.module.try.production,compile.module.try.tests" description="Compile module try"/>
+  
+  <target name="compile.module.try.production" depends="register.custom.compilers" description="Compile module try; production classes">
+    <mkdir dir="${try.output.dir}"/>
+    <javac2 destdir="${try.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.try}/javac">
+      <compilerarg line="${compiler.args.try}"/>
+      <bootclasspath refid="try.module.bootclasspath"/>
+      <classpath refid="try.module.production.classpath"/>
+      <src refid="try.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.try"/>
+    </javac2>
+    
+    <copy todir="${try.output.dir}">
+      <fileset dir="${module.try.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.try.tests" depends="register.custom.compilers,compile.module.try.production" description="compile module try; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.try" description="cleanup module">
+    <delete dir="${try.output.dir}"/>
+    <delete dir="${try.testoutput.dir}"/>
+  </target>
+</project>

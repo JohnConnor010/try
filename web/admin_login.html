@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>管理员登录</title>
+    <meta charset="utf-8" />
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link href="Content/style.css" rel="stylesheet" />
+    <script src="Scripts/jquery-3.1.0.js"></script>
+    <script src="Scripts/bootstrap.js"></script>
+    <script src="Scripts/jquery.form.js"></script>
+</head>
+<body>
+    <div class="nav navbar-inverse navbar-fixed-top" th:include="header.html::nav-top">
+    </div>
+    <div class="container body-content">
+        <h2>管理员登录</h2>
+        <div class="row">
+            <div class="col-md-8">
+                <section id="login_form">
+                    <form id="form1" action="./admin_login" method="post" class="form-horizontal">
+                        <h4>用户账户登录</h4>
+                        <hr />
+                        <div id="tip" class="alert alert-warning" role="alert" style="display:none">登录密码不正确！！</div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">用户名：</label>
+                            <div class="col-md-10">
+                                <input type="text" id="username" name="username" class="form-control input-sm" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">密码：</label>
+                            <div class="col-md-10">
+                                <input type="password" id="password" name="password" class="form-control input-sm" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="submit" class="btn btn-default">登录系统</button>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+            <div class="col-md-4">
+                <section id="socialLogin">
+                    <div>
+                        <h4>欢迎您，管理员</h4>
+                        <hr />
+                        <div>
+                            <p>欢迎登录试用审核系统！！</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <script src="scripts/jquery.form.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var options = {
+                target: "",
+                beforeSubmit: function () {
+                    if ($("#username").val() == "") {
+                        alert("请输入用户名");
+                        $("#username").focus();
+                        return false;
+                    }
+                    if ($("#password").val() == "") {
+                        alert("请输入登录密码");
+                        $("#password").focus();
+                        return false;
+                    }
+                },
+                success: function (responseText, responseStatus) {
+                    if (responseText == 0) {
+                        $("#tip").fadeIn("slow", function () {
+                            //$("tip").fadeOut("slow");
+                        })
+                    } else if (responseText == 1) {
+                        window.location.href = "./trylist";
+                    }
+                }
+            };
+            $("#form1").submit(function () {
+                $(this).ajaxSubmit(options);
+                return false;
+            })
+        })
+    </script>
+</body>
+</html>

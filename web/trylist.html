@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>试用列表</title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link href="Content/style.css" rel="stylesheet" />
+    <script src="Scripts/jquery-3.1.0.js"></script>
+    <script src="Scripts/bootstrap.js"></script>
+    <script src="resources/twbs-pagination/jquery.twbsPagination.js"></script>
+</head>
+<body>
+    <div class="nav navbar-inverse navbar-fixed-top" th:include="header.html::nav-top">
+    </div>
+    <div class="container body-content">
+        <div class="row">
+            <h2>用户试用列表</h2>
+            <div class="form-inline">
+                <label class="control-label">状态：</label>
+                <select id="ddlDetailsStatus" class="form-control input-sm">
+                    <option value="0">资料状态</option>
+                    <option value="1">未完善资料</option>
+                    <option value="2">已完善资料</option>
+                </select>
+                <select id="ddlAccountStatus" class="form-control input-sm">
+                    <option value="0">账户状态</option>
+                    <option value="1">未发放账户</option>
+                    <option value="2">已发放账户</option>
+                </select>
+            </div>
+            <br/>
+            <table class="table table-bordered table-condensed">
+                <thead>
+                    <tr>
+                        <th style="width:40px">编号</th>
+                        <th>企业编码</th>
+                        <th>企业名称</th>
+                        <th>联系电话</th>
+                        <th>企业邮箱</th>
+                        <th>所属行业</th>
+                        <th>第一联系人</th>
+                        <th>资料状态</th>
+                        <th>账户状态</th>
+                        <th>添加时间</th>
+                        <th>IP所在地区</th>
+                        <th style="width:120px">操作</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                    
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="text-center">
+                    <ul id="pagination-demo" class="pagination-sm"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="Scripts/jsrender.js"></script>
+    <script type="text/x-jsrender" id="template1">
+        {{for items}}
+        <tr>
+            <td style="width:40px">{{:id}}</td>
+            <td>{{:code}}</td>
+            <td>{{:name}}</td>
+            <td>{{:phone}}</td>
+            <td>{{:email}}</td>
+            <td>{{:userInfoData.industry_name}}</td>
+            <td>{{:userInfoData.name}}</td>
+            <td>{{:~completeText(is_complete)}}</td>
+            <td>{{:~providedText(is_provided)}}</td>
+            <td>{{:~showDate(userInfoData.add_time)}}</td>
+            <td><label title="IP地址为：{{:userInfoData.ip_address}}">{{:userInfoData.ip_region}}</label></td>
+            <td style="width:120px">
+                <a href="./details?id={{:id}}">完善资料</a>
+            </td>
+        </tr>
+        {{/for}}
+    </script>
+    <script src="Scripts/moment-with-locales.min.js"></script>
+    <script type="text/javascript">
+        function showFormatDate(timestamp) {
+            return moment(timestamp).format("YYYY-M-D HH:mm:ss");
+        }
+        function showCompleteText(state){
+            if(state == 1){
+                return "未完善资料";
+            }else if(state == 2){
+                return "已完善资料"
+            }else{
+                return "资料状态"
+            }
+        }
+        function showProvidedText(state){
+            if(state == 1){
+                return "未发放账户";
+            }else if(state == 2){
+                return "已发放账户";
+            }else{
+                return "账户状态";
+            }
+        }
+        var myHelpers = {
+            completeText:showCompleteText,
+            providedText: showProvidedText,
+            showDate:showFormatDate,
+        }
+        $.views.helpers(myHelpers);
+        function pagination(totalPages,is_complete, is_provided) {
+            $("#pagination-demo").twbsPagination({
+                first: "首页",
+                prev: "上一页",
+                next: "下一页",
+                last: "尾页",
+                totalPages: totalPages,
+                visiblePages: 10,
+                onPageClick: function (event, page) {
+                    $.get("/try/restful/service/userinfo/get/" + page + "/" + is_complete + "/" + is_provided, function (result) {
+                        if (result != null) {
+                            $("#tbody").empty();
+                            var data = { items: result };
+                            var html = $("#template1").render(data);
+                            $("#tbody").html(html);
+                        }
+                    })
+                }
+            })
+        }
+        $(function () {
+            var totalPages = "[[${totalPages}]]";
+            pagination(totalPages, 0, 0);
+            $("#ddlDetailsStatus").change(function () {
+                var is_complete = $(this).val();
+                var is_provided = $("#ddlAccountStatus").val();
+                $("#pagination-demo").twbsPagination("destroy")
+                pagination(totalPages, is_complete, is_provided);
+            });
+            $("#ddlAccountStatus").change(function () {
+                var is_complete = $("#ddlDetailsStatus").val();
+                var is_provided = $(this).val();
+                $("#pagination-demo").twbsPagination("destroy")
+                pagination(totalPages, is_complete, is_provided);
+            })
+            
+        })
+    </script>
+</body>
+</html>

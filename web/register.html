@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="resources/css/style.css" />
+    <script src="Scripts/jquery-3.1.0.js"></script>
+    <script src="Scripts/jquery.form.js"></script>
+
+    <title>申请试用</title>
+</head>
+<body>
+    <!-- 头部 开始 -->
+    <div class="head" th:include="header.html::top">
+    </div>
+    <!-- 头部 结束 -->
+    <!-- 登录页 开始 -->
+    <div class="Apply_r clearfix">
+        <div class="whole clearfix">
+            <div class="askFor">
+                <p class="Top_ask">试用申请</p>
+                <div class="Cozy_hint">请留下真实的联系方式，工作人员会尽快联系您！</div>
+                <div class="No_Bor_Apply">
+                    <form id="form1" action="./register" method="post">
+                        <table cellpadding="0" cellspacing="0">
+                            <colgroup>
+                                <col width="109" />
+                                <col width="394" />
+                                <col width="322" />
+                            </colgroup>
+                            <tr>
+                                <td align="right">姓名/称呼：</td>
+                                <td align="right"><input type="text" id="name" name="name" class="Input width350" placeholder="请输入您的姓名" /></td>
+                                <td align="left"></td>
+                            </tr>
+                            <tr>
+                                <td align="right">手机号：</td>
+                                <td align="right"><input type="text" id="mobile" name="mobile" class="Input width350" placeholder="请输入您的手机号" /></td>
+                                <td align="left"></td>
+                            </tr>
+                            <tr>
+                                <td align="right">座机号：</td>
+                                <td align="right"><input type="text" id="telephone_part1" name="telephone_part1" class="Input width133" placeholder="请输入区号" />--<input type="text" id="telephone_part2" name="telephone_part2" class="Input width196" placeholder="请输入座机号" /></td>
+                                <td align="left"><span>请写明区号</span></td>
+                            </tr>
+                            <tr>
+                                <td align="left" colspan="2">您是如何得知我们产品的：</td>
+                                <td align="left"></td>
+                            </tr>
+                            <tr>
+                                <td align="left"></td>
+                                <td align="left" class="clearfix">
+                                    <ul>
+                                        <li><input type="checkbox" name="source" class="radio" value="搜索引擎" />搜索引擎</li>
+                                        <li><input type="checkbox" name="source" class="radio" value="网络广告" />网络广告</li>
+                                        <li><input type="checkbox" name="source" class="radio" value="朋友介绍" />朋友介绍</li>
+                                        <li><input type="checkbox" name="source" class="radio" value="微博" />微博</li>
+                                        <li><input type="checkbox" name="source" class="radio" value="微信" />微信</li>
+                                        <li><input type="text" id="other_source" name="other_source" placeholder="其他" class="rest" /></li>
+                                    </ul>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td align="right" valign="top">需求或说明：</td>
+                                <td align="right" colspan="2">
+                                    <textarea id="summary" name="summary" class="textarea" placeholder="请输入您需要的需求或者说明"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right"></td>
+                                <td align="left" colspan="2">
+                                    <button type="submit" class="putIn">提交申请</button>
+                                    <button type="button" class="empty" id="btnClear">清  空</button>
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" align="center" class="Cozy_hint" id="output_div" style="display:none">提交成功，工作人员尽快联系您！</td>
+                            </tr>
+                        </table>
+                    </form>                    
+                </div>
+            </div>
+        </div>
+    </div>    
+    <div class="foot" th:include="footer.html::foot">
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            var options = {
+                target: "",
+                beforeSubmit: function (e) {
+                    if ($("#name").val() == "") {
+                        alert("请输入名称或昵称");
+                        $("#name").focus();
+                        return false;
+                    }
+                    if ($("#mobile").val() == "") {
+                        alert("请输入您的手机号");
+                        $("#mobile").focus();
+                        return false;
+                    }
+                    if (!(/^1[3|4|5|7|8]\d{9}$/.test($("#mobile").val()))) {
+                        alert("手机号码有误，请重新输入");
+                        $("#mobile").focus();
+                        return false;
+                    }
+                    
+                    if ($("#telephone_part1").val() == "") {
+                        alert("请输入座机区号");
+                        $("#telephone_part1").focus();
+                        return false;
+                    }
+                    if ($("#telephone_part2").val() == "") {
+                        alert("请输入座机号");
+                        $("#telephone_part2").focus();
+                        return false;
+                    }
+                    var length = $("input[name='source']:checked").length;
+                    if (length == 0 && $("#other_source").val() == "") {
+                        alert("请至少选择一项来源");
+                        return false;
+                    }
+                },
+                success: function (responseText, statusText) {
+                    if (responseText.trim() == "1") {
+                        /*$("#output_div").show();
+                        $("#name").val("");
+                        $("#mobile").val("");
+                        $("#telephone_part1").val("");
+                        $("#telephone_part2").val("");
+                        $("input[name='source']").prop("checked", false);
+                        $("#other_source").val("");
+                        $("#summary").val("");*/
+                        $("#output_div").fadeIn("slow",function(){
+                            $("#output_div").fadeOut("slow",function(){
+                                window.location.href = "http://yq.leiju.cc";
+                            })
+                        })
+                    } else {
+                        alert("数据保存失败");
+                    }
+                    
+                }
+            };
+            $("#form1").submit(function () {
+                $(this).ajaxSubmit(options);
+                return false;
+            });
+            $("#mobile").blur(function () {
+                $.ajax({
+                    type: "post",
+                    url: "/try/restful/service/check/mobile",
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    data: $("#mobile").val(),
+                    success: function (result) {
+                        if (result > 0) {
+                            alert("此手机号已经存在，请重新输入");
+                            $("#mobile").val("");
+                            $("#mobile").focus();
+                        }
+                    }
+                })
+            });
+            $("#btnClear").click(function () {
+                $("#name").val("");
+                $("#mobile").val("");
+                $("#telephone_part1").val("");
+                $("#telephone_part2").val("");
+                $("input[name='source']").prop("checked", false);
+                $("#other_source").val("");
+                $("#summary").val("");
+            })
+        });
+    </script>
+</body>
+</html>

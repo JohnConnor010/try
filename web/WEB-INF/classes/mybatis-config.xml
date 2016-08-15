@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://112.230.205.198:3306/leiju_try"/>
+        <property name="username" value="duxcms"/>
+        <property name="password" value="szpdOwRBK5g3"/>
+      </dataSource>
+    </environment>
+  </environments>
+  <mappers>
+  	<mapper class="com.myapp.mapper.UserInfoMapper"/>
+  	<mapper class="com.myapp.mapper.CategoryMapper"/>
+  	<mapper class="com.myapp.mapper.AdminMapper"/>
+    <mapper class="com.myapp.mapper.CorporateInfoMapper"/>
+    <mapper class="com.myapp.mapper.ProvinceMapper"/>
+    <mapper class="com.myapp.mapper.CityMapper"/>
+    <mapper class="com.myapp.mapper.AreaMapper"/>
+      <mapper class="com.myapp.mapper.CustomerLevelMapper"/>
+      <mapper class="com.myapp.mapper.AccountMapper"/>
+      <mapper class="com.myapp.mapper.LogMapper"/>
+      <mapper class="com.myapp.mapper.IndustryMapper"/>
+  </mappers>
+</configuration>

@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>审核员列表</title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link href="Content/style.css" rel="stylesheet" />
+    <script src="Scripts/jquery-3.1.0.js"></script>
+    <script src="Scripts/bootstrap.js"></script>
+</head>
+<body>
+    <div class="nav navbar-inverse navbar-fixed-top" th:include="header.html::nav-top">
+    </div>
+    <div class="container body-content">
+        <div th:if="${session.username} == 'admin'">
+            <h2>审核员列表</h2>
+            <h4><a href="./auditor_register">新建审核员</a></h4>
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th style="width:40px;text-align:center">编号</th>
+                        <th style="width:120px">用户名</th>
+                        <th>真实姓名</th>
+                        <th>简要说明</th>
+                        <th style="width:120px;text-align:center">操作</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody1">
+                    <tr th:each="auditor:${auditors}">
+                        <td style="width:40px;text-align:center" th:text="${auditor.id}"></td>
+                        <td style="width:120px" th:text="${auditor.username}"></td>
+                        <td th:text="${auditor.realname}"></td>
+                        <td th:text="${auditor.description}"></td>
+                        <td style="width:120px;text-align:center">
+                            <a th:href="@{./auditor_register(id=${auditor.id})}">编辑</a>
+                            <a href="javascript:;" th:onclick="'doDelete(\'' + ${auditor.id}+ '\')'">删除</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:if="${session.username} != 'admin'">
+            <br/>
+            <div  class="alert alert-danger" role="alert">
+                您没有添加审核员的权限
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function doDelete(id) {
+            if (confirm("确定要删除此审核员吗？")) {
+                $.get("./restful/service/auditor/delete/" + id, function (result) {
+                    if (result > 0) {
+                        alert("审核员删除成功");
+                        window.location.reload();
+                    }
+                })
+            }
+        }
+    </script>
+</body>
+</html>

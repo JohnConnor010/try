@@ -25,7 +25,7 @@ public interface UserInfoMapper
             @Result(property = "ip_address",column = "ip_address"),
             @Result(property = "ip_region",column = "ip_region")
 	})
-	@Insert("INSERT INTO `leiju_try`.`user_info`(`name`,`mobile`,`telephone`,`source`,`summary`,`is_new`,`add_time`,`corporate_id`,`email`,`qq`,`ip_address`,`ip_region`)"
+	@Insert("INSERT INTO `user_info`(`name`,`mobile`,`telephone`,`source`,`summary`,`is_new`,`add_time`,`corporate_id`,`email`,`qq`,`ip_address`,`ip_region`)"
 			+ "VALUES(#{name},#{mobile},#{telephone},#{source},#{summary},#{is_new},#{add_time},#{corporate_id},#{email},#{qq},#{ip_address},#{ip_region});")
 	@Options(useGeneratedKeys = true,keyProperty = "id",keyColumn = "id")
 	int insert(UserInfo userInfo);

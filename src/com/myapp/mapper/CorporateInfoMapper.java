@@ -74,7 +74,7 @@ public interface CorporateInfoMapper
     })
     List<CorporateInfo> getCorporateInfoByLimit(@Param("offset") int offiset,@Param("limit") int limit,@Param("is_complete") int is_complete,@Param("is_provided") int is_provided);
     
-    @Update("UPDATE leiju_try.corporate_info SET name = #{name}, industry = #{industry}, province = #{province}, city = #{city}, area = #{area}, address = #{address}, level = #{level}, phone = #{phone}, fax = #{fax}, `400Phone` = #{_400Phone}, email = #{email}, legal_name = #{legal_name}, legal_mobile = #{legal_mobile}, legal_phone = #{legal_phone}, legal_qq = #{legal_qq}, official_website = #{official_website}, is_complete = #{is_complete}, is_provided = #{is_provided} WHERE id = #{id};")
+    @Update("UPDATE corporate_info SET name = #{name}, industry = #{industry}, province = #{province}, city = #{city}, area = #{area}, address = #{address}, level = #{level}, phone = #{phone}, fax = #{fax}, `400Phone` = #{_400Phone}, email = #{email}, legal_name = #{legal_name}, legal_mobile = #{legal_mobile}, legal_phone = #{legal_phone}, legal_qq = #{legal_qq}, official_website = #{official_website}, is_complete = #{is_complete}, is_provided = #{is_provided} WHERE id = #{id};")
     int update(CorporateInfo info);
     
     @Update("UPDATE corporate_info set image_url=#{image_url} WHERE id=#{id}")

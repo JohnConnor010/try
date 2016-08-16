@@ -124,17 +124,9 @@
                 },
                 success: function (responseText, statusText) {
                     if (responseText.trim() == "1") {
-                        /*$("#output_div").show();
-                        $("#name").val("");
-                        $("#mobile").val("");
-                        $("#telephone_part1").val("");
-                        $("#telephone_part2").val("");
-                        $("input[name='source']").prop("checked", false);
-                        $("#other_source").val("");
-                        $("#summary").val("");*/
                         $("#output_div").fadeIn("slow",function(){
                             $("#output_div").fadeOut("slow",function(){
-                                window.location.href = "http://yq.leiju.cc";
+                                window.location.href = "http://yq.leiju.com.cn";
                             })
                         })
                     } else {
